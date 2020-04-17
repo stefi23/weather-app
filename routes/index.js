@@ -35,8 +35,7 @@ router.post("/address", (req, res) => {
 });
 
 // 3. Add an endpoint ​that receives an address, validate it and check the weather for the lat/lon of that address.
-router.post("/address", (req, res) => {
-  let address = false;
+router.post("/address/response", (req, res) => {
   const street = req.body.street.replace(/[ ,]+/g, "+");
   const streetNumber = req.body.streetNumber;
   const town = req.body.town;
@@ -51,7 +50,21 @@ router.post("/address", (req, res) => {
       )}`
     )
     .then((response) => {
-      res.send(address == true);
+      let latitude =
+        response.data["Response"]["View"][0]["Result"][0]["Location"][
+          "DisplayPosition"
+        ]["Latitude"];
+      let longitude =
+        response.data["Response"]["View"][0]["Result"][0]["Location"][
+          "DisplayPosition"
+        ]["Longitude"];
+      console.log("latitude: ", latitude);
+      console.log("longitude: ", longitude);
+      let location = {
+        latitude: latitude,
+        longitude: longitude,
+      };
+      res.send(location);
     })
     .catch((error) => res.send(error));
 });
