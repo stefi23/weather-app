@@ -38,5 +38,4 @@ You could connect this to a Frontend maybe with React and create a weather web a
 $ git clone https://github.com/stefi23/weather-app.git
 $ cd weather-app
 $ npm install
-$ rake start
 ```
